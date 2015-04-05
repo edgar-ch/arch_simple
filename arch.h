@@ -1,8 +1,19 @@
 #define BUF_SIZE 8096
 
+/* Working mode */
 enum Mode {CREATE = 1, EXTRACT};
+/* Entry type in archive */
 enum FType {DIR_T = 1, FILE_T};
 
+/* Header for every file or directory
+ * in archive.
+ * Archive structure looks like:
+ * [ entry header (struct arch_header)]
+ * [ nothing if directory, 
+ *	 binary stream if file ]
+ * .........
+ * [ ends with zeroed header]
+ * */
 struct arch_header {
 	char name[PATH_MAX];
 	uint64_t size;
